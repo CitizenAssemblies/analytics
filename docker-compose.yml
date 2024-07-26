@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  llama-fastapi:
+    build: .
+    ports:
+      - "8010:8010"
+    volumes:
+      - .:/app
+    environment:
+      - HF_TOKEN=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
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
+    restart: unless-stopped
